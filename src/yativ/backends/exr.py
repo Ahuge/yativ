@@ -4,6 +4,8 @@ import OpenEXR
 import numpy
 import Imath
 
+from yativ.colorspaces import srgb
+
 
 def supported(path):
     return OpenEXR.isOpenExrFile(path)
@@ -22,4 +24,4 @@ def getPixels(path):
     im[:,:,2] = numpy.frombuffer(image.channel('B', pt), dtype=numpy.float32).reshape((x,y))
 
     im = numpy.clip(im, 0, 1)
-    return im, x, y
+    return srgb.to(im), x, y
