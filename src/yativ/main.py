@@ -39,8 +39,9 @@ def display_image(path):
             gpix = green[xindex, yindex]
             bpix = blue[xindex, yindex]
             number = terminal_utils.rgbTupleToANSIColor(rpix, gpix, bpix)
-
-            sys.stdout.write(u"\u001b[48;5;{num}m  \u001b[0m".format(num=number))
+            ansi = terminal_utils.ansi_code(rpix, gpix, bpix)
+            sys.stdout.write(ansi + u"  \x1b[0m")
+            # sys.stdout.write(u"\u001b[48;5;{num}m  \u001b[0m".format(num=number))
         sys.stdout.write(u"\n")
 
 if __name__ == "__main__":
