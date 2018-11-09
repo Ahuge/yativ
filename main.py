@@ -4,11 +4,30 @@ import argparse
 
 import numpy
 import terminal_utils
+from yativ.exceptions import UnknownImagePathError
+
+def extension_loader(path):
+    ext = os.path.splitext(path)[-1]
+    plugin = __import__("backends.%s" % ext, globals(), locals(), ["supported", "getPixels"])
+    if plugin.supported(path):
+        return plugin.getPixels(path)
+    else:
+        for filename in os.listdir(os.path.join(os.path.dirname(__file__), "backends")):
+            ext = os.path.splitext(filename)[-1]
+            plugin = __import__("backends.%s" % ext, globals(), locals(), ["supported", "getPixels"])
+            if plugin.supported(path):
+                return plugin.getPixels(path)
+    return UnknownImagePathError("Unable to load backend for %s" % path)
 
 
 if __name__ == "__main__":
     path = sys.argv[1]
-    matrix, x, y = getPixelsSRGB(path)
+    try:
+        matrix, x, y = extension_loader(path)
+    except UnknownImagePathError as err:
+        import traceback
+        traceback.print_exc()
+        sys.exit(1)
     
     red = matrix[:,:,0]
     green = matrix[:,:,1]
