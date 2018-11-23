@@ -1,6 +1,9 @@
 import sys
 import re
 
+RGB2SHORT_DICT = None
+SHORT2RGB_DICT = None
+
 CLUT = [  # color look-up table
 #    8-bit, RGB hex
 
@@ -294,6 +297,7 @@ def rgb2short(rgb):
     >>> rgb2short('0DADD6') # vimeo logo
     ('38', '00afd7')
     """
+    global RGB2SHORT_DICT
     rgb = _strip_hash(rgb)
     incs = (0x00, 0x5f, 0x87, 0xaf, 0xd7, 0xff)
     # Break 6-char RGB code into 3 integer vals.

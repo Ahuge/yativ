@@ -47,8 +47,7 @@ def display_image(path, size=32):
             gpix = green[xindex, yindex]
             bpix = blue[xindex, yindex]
             ansi = terminal_utils.ansi_code(rpix, gpix, bpix)
-            sys.stdout.write(ansi + u"  \033[0m")
-            # sys.stdout.write(u"\u001b[48;5;{num}m  \u001b[0m".format(num=number))
+            sys.stdout.write(ansi)
         sys.stdout.write(u"\n")
 
 

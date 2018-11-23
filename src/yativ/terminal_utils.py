@@ -11,15 +11,15 @@ def colorTrue():
 
 
 def ansi_code(r, g, b):
-    hr = int(r*256)
-    hg = int(r*256)
-    hb = int(b*256)
+    hex_r = int(rpix * 256)
+    hex_g = int(gpix * 256)
+    hex_b = int(bpix * 256)
     if colorTrue():
-        return u"\x1b[48;2;%s;%s;%s" % (hr, hg, hb)
+        return u"\u001b[48;2;%s;%s;%s" % (hex_r, hex_g, hex_b)
     elif color256():
-        hex_color = "%02x%02x%02x" % (hr, hg, hb)
+        hex_color = "%02x%02x%02x" % (hex_r, hex_g, hex_b)
         number, hexc = hexColorSupport.rgb2short(hex_color)
-        return u"\x1b[48;5;%sm" % number
+        return u"\u001b[48;5;{num}m  \u001b[0m".format(num=number)
 
 
 def rgbTupleToANSIColor(r, g, b):
