@@ -6,8 +6,8 @@ def color256():
 
 def colorTrue():
     # TODO: test
-    # return False
-    return True
+    return False
+    # return True
 
 
 def ansi_code(r, g, b):
@@ -19,7 +19,7 @@ def ansi_code(r, g, b):
     elif color256():
         hex_color = "%02x%02x%02x" % (hr, hg, hb)
         number, hexc = hexColorSupport.rgb2short(hex_color)
-        return u"\x1b[48;5;%s" % number
+        return u"\x1b[48;5;%sm" % number
 
 
 def rgbTupleToANSIColor(r, g, b):
